@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
-const Question = require("./Question")  // a question schema
 const Schema = mongoose.Schema;
+// const Question = require("./Question")  // a question schema ' this is also a problem
+// const Question = mongoose.model("Question")  // a question schema ' this is also a problem
+const { Question } = require(__dirname + '/Question.js').schema;
 
 const GameSchema = new Schema({
     name: String,
@@ -18,5 +20,4 @@ const GameSchema = new Schema({
         default: null
     }
 })
-
 module.exports = mongoose.model("Game", GameSchema)

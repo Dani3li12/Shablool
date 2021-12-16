@@ -31,10 +31,7 @@ exports.create = async (req, res) => {
 exports.findOne = async (req, res) => {
     try {
         const question = await Question.findOne({ _id: req.body.id })
-        res.send(question);
-        res.status(200).json({
-            success: true
-        });
+        res.status(200).send(question)
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -74,10 +71,8 @@ exports.update = async (req, res) => {  // update operation into a single record
 
 exports.getAll = async (req, res) => {
     try {
-        await Question.find();
-        res.status(200).json({
-            success: true
-        })
+        const questions = await Question.find();
+        res.send(questions).status(200);
     } catch (err) {
         res.status(500).json({
             success: false,

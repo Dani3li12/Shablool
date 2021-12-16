@@ -2,15 +2,18 @@ const express = require("express")
 const router = express.Router()
 const accounts = require("../controllers/account.controller");
 
-// Get all accounts
-router.get("/", accounts.getAll);
+router.get("/", accounts.getAll); // Get all accounts
 
 router.post("/", accounts.create);
 
-router.get("/:id", accounts.findOne);
+// router.get("/:id", (req, res) => {
+//     accounts.findOne
+// });
 
-router.patch("/:id", accounts.update);
+// router.patch("/:id", (req, res) => {
+//     accounts.update
+// });
 
-router.delete("/:id", questions.delete);
+router.delete("/:id", accounts.delete);
 
 module.exports = router

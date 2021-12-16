@@ -1,4 +1,4 @@
-const Account = require("../models/Account")
+const Account = require("../models/Account");
 
 exports.create = async (req, res) => {
     try {
@@ -17,10 +17,8 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
-        await Account.find();
-        res.status(200).json({
-            success: true
-        });
+        const accounts = await Account.find();
+        res.send(accounts).status(200)
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -31,7 +29,7 @@ exports.getAll = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        await Account.deleteOne({ _id: req.body.id })
+        await Account.deleteOne({ _id: req.params.id })
         res.status(200).json({
             success: true
         })

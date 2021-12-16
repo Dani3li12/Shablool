@@ -2,8 +2,7 @@ const express = require("express")
 const router = express.Router()
 const questions = require("../controllers/question.controller");
 
-// Get all questions
-router.get("/", questions.getAll);
+router.get("/", questions.getAll);// Get all questions
 
 router.post("/", questions.create);
 
