@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const questions = require("../controllers/question.controller");
+const questions = require("../controllers/question.controller")
 
 router.get("/", questions.getAll);// Get all questions
 

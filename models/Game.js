@@ -1,7 +1,8 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
-// const Question = require("./Question")  // a question schema ' this is also a problem
-// const Question = mongoose.model("Question")  // a question schema ' this is also a problem
+const { Play } = require(__dirname + '/Game.js').schema;
+
+
 const { Question } = require(__dirname + '/Question.js').schema;
 
 const GameSchema = new Schema({
@@ -11,8 +12,8 @@ const GameSchema = new Schema({
         default: Date.now
     },
     played: {
-        type: Number,
-        default: 0
+        type: [Play],
+        default: null
     },
     creatorId: String,
     questions: {

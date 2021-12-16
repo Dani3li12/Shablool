@@ -18,4 +18,9 @@ router.post("/", games.create)
 //     games.delete
 // });
 
+// TODO:
+// 1. get amount it played
+// 2. get amount of questions in game
+// 3. 
+
 module.exports = router
