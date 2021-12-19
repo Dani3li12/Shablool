@@ -6,6 +6,9 @@ router.get("/", games.getAll)// Get all games
 
 router.post("/", games.create)
 
+router.post("/addRound", games.addRound)
+
+
 // router.get("/:id", (req, res) => {
 //     games.findOne
 // });
@@ -17,10 +20,5 @@ router.post("/", games.create)
 // router.delete("/:id", (req, res) => {
 //     games.delete
 // });
-
-// TODO:
-// 1. get amount it played
-// 2. get amount of questions in game
-// 3. 
 
 module.exports = router

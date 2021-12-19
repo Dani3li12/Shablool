@@ -1,9 +1,7 @@
 const mongoose = require("mongoose")
-const Schema = mongoose.Schema;
-const { Play } = require(__dirname + '/Game.js').schema;
-
-
-const { Question } = require(__dirname + '/Question.js').schema;
+    , Schema = mongoose.Schema
+    , { Round } = require(__dirname + '/Round.js').schema
+    , { Question } = require(__dirname + '/Question.js').schema
 
 const GameSchema = new Schema({
     name: String,
@@ -11,8 +9,8 @@ const GameSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    played: {
-        type: [Play],
+    rounds: {
+        type: [Round],
         default: null
     },
     creatorId: String,

@@ -40,3 +40,9 @@ exports.delete = async (req, res) => {
         })
     }
 }
+
+/*
+TOOD: 
+1. update avatar
+2. add game
+*/

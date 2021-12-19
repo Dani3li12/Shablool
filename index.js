@@ -1,6 +1,6 @@
 const express = require("express")
 const mongoose = require("mongoose") // new
-const routes = require("./routes/question.route") // new
+const routes = require("./routes") // new
 
 // Connect to MongoDB database
 mongoose

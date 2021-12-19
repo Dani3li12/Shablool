@@ -80,3 +80,8 @@ exports.getAll = async (req, res) => {
         })
     }
 }
+
+/*
+TODO: 
+1. Check if answer clicked is correct
+*/
