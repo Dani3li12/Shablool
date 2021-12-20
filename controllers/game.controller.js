@@ -27,13 +27,17 @@ exports.create = async (req, res) => {
 };
 
 exports.addRound = async (req, res) => {
-    // console.log(Game.find({ _id: req.body.id }))
-    console.log((req.body.round));
     try {
-        await Game.find({ _id: req.body.id }).rounds.insert(req.body.round)
-        console.log("found something")
-        res.status(200).json({
-            success: true
+        Game.findOne({ _id: req.body.id }, (err, game) => {
+            if (game) {
+                game.rounds.push(req.body.round);
+
+
+                res.status(200).json({
+                    success: true,
+                    game: game
+                })
+            }
         })
     } catch (err) {
         res.status(500).json({

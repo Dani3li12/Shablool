@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
     , { Question } = require(__dirname + '/Question.js').schema
 
 const GameSchema = new Schema({
-    name: String,
+    gameName: String,
     createdDate: {
         type: Date,
         default: Date.now
