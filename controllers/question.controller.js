@@ -58,8 +58,9 @@ exports.update = async (req, res) => {  // update operation into a single record
     try {
         const question = await Question.findOne({ _id: req.body.id })
         await question.update(req.body)
+        res.save()
         res.status(200).json({
-            success: false,
+            success: true,
         });
     } catch (err) {
         res.status(500).json({

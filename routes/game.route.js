@@ -8,6 +8,13 @@ router.post("/", games.create)
 
 router.post("/addRound", games.addRound)
 
+router.post("/addQuestion", games.addQuestion)
+
+router.get("/roundsAmount", games.roundsAmount)
+
+router.get("/questionsAmount", games.questionsAmount)
+
+router.patch("/updateQuestion", games.updateQuestion);
 
 // router.get("/:id", (req, res) => {
 //     games.findOne
