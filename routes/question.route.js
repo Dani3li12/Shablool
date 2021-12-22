@@ -2,14 +2,14 @@ const express = require("express")
 const router = express.Router()
 const questions = require("../controllers/question.controller")
 
-router.get("/", questions.getAll);// Get all questions
+router.get("/", questions.getAll)// Get all questions
 
-router.post("/", questions.create);
+router.post("/", questions.create)
 
-router.get("/:id", questions.findOne);
+router.get("/", questions.findOne)
 
-router.patch("/:id", questions.update);
+router.patch("/", questions.update)
 
-router.delete("/:id", questions.delete);
+router.delete("/", questions.delete)
 
 module.exports = router

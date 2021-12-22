@@ -6,14 +6,12 @@ router.get("/", accounts.getAll) // Get all accounts
 
 router.post("/", accounts.create)
 
-// router.get("/:id", (req, res) => {
-//     accounts.findOne
-// });
+router.patch("/updateAvatar", accounts.updateAvatar)
 
-// router.patch("/:id", (req, res) => {
-//     accounts.update
-// });
+router.delete("/", accounts.delete)
 
-router.delete("/:id", accounts.delete)
+router.get("/findOne", accounts.findOne)
+
+router.post("/addGame", accounts.addGame)
 
 module.exports = router

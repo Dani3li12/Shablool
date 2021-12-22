@@ -14,18 +14,10 @@ router.get("/roundsAmount", games.roundsAmount)
 
 router.get("/questionsAmount", games.questionsAmount)
 
-router.patch("/updateQuestion", games.updateQuestion);
+router.patch("/updateQuestion", games.updateQuestion)
 
-// router.get("/:id", (req, res) => {
-//     games.findOne
-// });
+router.delete("/delete", games.delete)
 
-// router.patch("/:id", (req, res) => {
-//     games.update
-// });
-
-// router.delete("/:id", (req, res) => {
-//     games.delete
-// });
+router.get("/findOne", games.findOne)
 
 module.exports = router

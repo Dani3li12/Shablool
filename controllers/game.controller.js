@@ -1,8 +1,9 @@
-const Game = require("../models/Game")
+const Game = require("../models/Game");
+const Question = require("../models/Question");
 
 exports.getAll = async (req, res) => {
     try {
-        const games = await Game.find();
+        const games = await Game.find()
         res.status(200).send(games)
     } catch (err) {
         res.status(500).json({
@@ -14,7 +15,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        await Game.create(req.body);
+        await Game.create(req.body)
         res.status(200).json({
             success: true
         });
@@ -30,7 +31,7 @@ exports.addRound = async (req, res) => {
     try {
         Game.findOne({ _id: req.body.id }, (err, game) => {
             if (game) {
-                game.rounds.push(req.body.round);
+                game.rounds.push(req.body.round)
                 game.save();
                 res.status(200).json({
                     success: true,
@@ -50,7 +51,7 @@ exports.addQuestion = async (req, res) => {
     try {
         Game.findOne({ _id: req.body.id }, (err, game) => {
             if (game) {
-                game.questions.push(req.body.question);
+                game.questions.push(req.body.question)
                 game.save();
                 res.status(200).json({
                     success: true,
@@ -89,19 +90,16 @@ exports.updateQuestion = async (req, res) => {
     try {
         Game.findOne({ _id: req.body.gameId }, (error, game) => {
             if (game) {
-                console.log(game)
-                console.log("req.body.question.title: " + req.body.question.title);
-                console.log("game.questions: ")
-                console.log(game.questions)
-                game.questions.deleteOne({ title: req.body.question.title }, (error, idk) => {
-                    console.log("idk");
-                    console.log(idk);
-                    game.questions.push(req.body.question)
-                    res.save()
-                })
+                for (let i = 0; i < game.questions.length; i++) {
+                    if (game.questions[i]._id === req.body.question._id) {
+                        game.questions[i] = req.body.question;
+                        break;
+                    }
+                }
+                game.save()
                 res.status(200).json({
                     success: true,
-                    game: game.questions
+                    game: game
                 })
             }
         })
@@ -133,13 +131,32 @@ exports.questionsAmount = async (req, res) => {
     }
 }
 
+exports.delete = async (req, res) => {
+    try {
+        await Game.deleteOne({ _id: req.body.id })
+        res.status(200).json({
+            success: true,
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
 
+exports.findOne = async (req, res) => {
+    try {
+        const game = await Game.findOne({ _id: req.body.id })
+        res.send(game).status(200)
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
 /*
 TODO:
-1. get number of rounds (v)
-2. get amount of questions in game (v)
-3. add round (v)
-4. add question (v)
-5. update-resave question
-6. delete game
+1.
 */

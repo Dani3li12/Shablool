@@ -16,7 +16,7 @@ const Question = require("../models/Question")
 
 exports.create = async (req, res) => {
     try {
-        await Question.create(req.body);
+        await Question.create(req.body)
         res.status(200).json({
             success: true
         });
@@ -72,8 +72,8 @@ exports.update = async (req, res) => {  // update operation into a single record
 
 exports.getAll = async (req, res) => {
     try {
-        const questions = await Question.find();
-        res.send(questions).status(200);
+        const questions = await Question.find()
+        res.send(questions).status(200)
     } catch (err) {
         res.status(500).json({
             success: false,
