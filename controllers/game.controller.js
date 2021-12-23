@@ -1,5 +1,7 @@
+const { OK } = require("../const/statusCodes");
 const Game = require("../models/Game");
 const Question = require("../models/Question");
+const Round = require("../models/Round");
 
 exports.getAll = async (req, res) => {
     try {
@@ -15,7 +17,11 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        await Game.create(req.body)
+        const gameOptions = {
+            gameName: req.body.gameName,
+            adminIds: [req.body.userId]
+        }
+        await Game.create(gameOptions)
         res.status(200).json({
             success: true
         });
@@ -114,6 +120,13 @@ exports.updateQuestion = async (req, res) => {
 
 exports.questionsAmount = async (req, res) => {
     try {
+        // const { gameId } = req.query;
+        // const questions = await Question.find({ gameId: gameId });
+        // res.status(200).json({
+        //     success: true,
+        //     questions: questions.length
+        // });
+
         Game.findOne({ _id: req.body.id }, (error, game) => {
             if (game) {
                 let amount = game.questions.length
@@ -147,8 +160,20 @@ exports.delete = async (req, res) => {
 
 exports.findOne = async (req, res) => {
     try {
+        // TODO: get all questions and rounds and add them to game object
         const game = await Game.findOne({ _id: req.body.id })
-        res.send(game).status(200)
+
+        const questions = await Question.find({ gameId: req.body.id });
+        game.questions = questions;
+
+        const rounds = await Round.find({ gameId: gameId });
+        game.rounds = rounds;
+        // res.send(game).status(200)
+
+        res.status(OK).json({
+            success: true,
+            game: game
+        })
     } catch (err) {
         res.status(500).json({
             success: false,

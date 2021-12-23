@@ -9,14 +9,7 @@ const GameSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    rounds: {
-        type: [Round],
-        default: null
-    },
-    creatorId: String,
-    questions: {
-        type: [Question],
-        default: null
-    }
+    questionsIds: [],
+    privacy: String
 })
-module.exports = mongoose.model("Game", GameSchema)
+exports.Game = mongoose.model("Game", GameSchema)

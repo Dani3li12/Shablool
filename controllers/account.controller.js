@@ -1,14 +1,15 @@
+const { OK, SERVER_ERR } = require("../const/statusCodes");
 const Account = require("../models/Account");
 
 exports.create = async (req, res) => {
     try {
         await Account.create(req.body);
-        res.status(200).json({
+        res.status(OK).json({
             success: true
         });
     }
     catch (err) {
-        res.status(500).json({
+        res.status(SERVER_ERR).json({
             success: false,
             error: err.message
         });

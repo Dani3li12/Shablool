@@ -6,7 +6,8 @@ const RoundSchema = new Schema({
     students: [{
         name: String,
         grade: Number
-    }]
+    }],
+    gameId: mongoose.Schema.Types.ObjectId
 })
 
 module.exports = mongoose.model("Round", RoundSchema)   

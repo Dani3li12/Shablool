@@ -22,7 +22,7 @@ const QuestionSchema = new Schema({
     score: {
         type: Number,
         default: 100
-    }
+    },
 })
 
 module.exports = mongoose.model("Question", QuestionSchema)

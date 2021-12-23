@@ -9,10 +9,7 @@ const AccountSchema = new Schema({
         type: String,
         default: "default"
     },
-    games: {
-        type: [Game],
-        default: null
-    }
+    gamesIds: []
 });
 
 module.exports = mongoose.model("Account", AccountSchema)
