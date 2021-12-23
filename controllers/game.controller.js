@@ -1,7 +1,8 @@
 const { OK } = require("../const/statusCodes");
 const Game = require("../models/Game");
-const Question = require("../models/Question");
-const Round = require("../models/Round");
+// const Question = require("../models/Question");
+// const Round = require("../models/Round");
+const Account = require("../models/Account");
 
 exports.getAll = async (req, res) => {
     try {
@@ -17,11 +18,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const gameOptions = {
-            gameName: req.body.gameName,
-            adminIds: [req.body.userId]
-        }
-        await Game.create(gameOptions)
+        await Game.create()
         res.status(200).json({
             success: true
         });
@@ -33,31 +30,31 @@ exports.create = async (req, res) => {
     };
 };
 
-exports.addRound = async (req, res) => {
-    try {
-        Game.findOne({ _id: req.body.id }, (err, game) => {
-            if (game) {
-                game.rounds.push(req.body.round)
-                game.save();
-                res.status(200).json({
-                    success: true,
-                    game: game
-                })
-            }
-        })
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            error: err.message
-        });
-    }
-}
+// exports.addRound = async (req, res) => {
+//     try {
+//         Game.findOne({ _id: req.body.id }, (err, game) => {
+//             if (game) {
+//                 game.rounds.push(req.body.round)
+//                 game.save();
+//                 res.status(200).json({
+//                     success: true,
+//                     game: game
+//                 })
+//             }
+//         })
+//     } catch (err) {
+//         res.status(500).json({
+//             success: false,
+//             error: err.message
+//         });
+//     }
+// }
 
 exports.addQuestion = async (req, res) => {
     try {
-        Game.findOne({ _id: req.body.id }, (err, game) => {
+        Game.findOne({ _id: req.body.gameId }, (err, game) => {
             if (game) {
-                game.questions.push(req.body.question)
+                game.questionsIds.push(req.body.questionId)
                 game.save();
                 res.status(200).json({
                     success: true,
@@ -73,63 +70,55 @@ exports.addQuestion = async (req, res) => {
     }
 }
 
-exports.roundsAmount = async (req, res) => {
-    try {
-        Game.findOne({ _id: req.body.id }, (error, game) => {
-            if (game) {
-                const amount = game.rounds.length
-                res.status(200).json({
-                    success: true,
-                    rounds: amount
-                })
-            }
-        })
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            error: err.message
-        });
-    }
-}
+// exports.roundsAmount = async (req, res) => {
+//     try {
+//         Game.findOne({ _id: req.body.id }, (error, game) => {
+//             if (game) {
+//                 const amount = game.rounds.length
+//                 res.status(200).json({
+//                     success: true,
+//                     rounds: amount
+//                 })
+//             }
+//         })
+//     } catch (err) {
+//         res.status(500).json({
+//             success: false,
+//             error: err.message
+//         });
+//     }
+// }
 
-exports.updateQuestion = async (req, res) => {
-    try {
-        Game.findOne({ _id: req.body.gameId }, (error, game) => {
-            if (game) {
-                for (let i = 0; i < game.questions.length; i++) {
-                    if (game.questions[i]._id === req.body.question._id) {
-                        game.questions[i] = req.body.question;
-                        break;
-                    }
-                }
-                game.save()
-                res.status(200).json({
-                    success: true,
-                    game: game
-                })
-            }
-        })
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            error: err.message
-        })
-    }
-}
-
+// exports.updateQuestion = async (req, res) => {
+//     try {
+//         Game.findOne({ _id: req.body.gameId }, (error, game) => {
+//             if (game) {
+//                 for (let i = 0; i < game.questions.length; i++) {
+//                     if (game.questions[i]._id === req.body.question._id) {
+//                         game.questions[i] = req.body.question;
+//                         break;
+//                     }
+//                 }
+//                 game.save()
+//                 res.status(200).json({
+//                     success: true,
+//                     game: game
+//                 })
+//             }
+//         })
+//     } catch (err) {
+//         res.status(500).json({
+//             success: false,
+//             error: err.message
+//         })
+//     }
+// }
 
 exports.questionsAmount = async (req, res) => {
     try {
-        // const { gameId } = req.query;
-        // const questions = await Question.find({ gameId: gameId });
-        // res.status(200).json({
-        //     success: true,
-        //     questions: questions.length
-        // });
-
-        Game.findOne({ _id: req.body.id }, (error, game) => {
+        Game.findOne({ _id: req.body.gameId }, (error, game) => {
             if (game) {
-                let amount = game.questions.length
+                let amount = game.questionsIds.length
                 res.status(200).json({
                     success: true,
                     questions: amount
@@ -146,7 +135,7 @@ exports.questionsAmount = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        await Game.deleteOne({ _id: req.body.id })
+        await Game.deleteOne({ _id: req.body.gameId })
         res.status(200).json({
             success: true,
         })
@@ -160,16 +149,6 @@ exports.delete = async (req, res) => {
 
 exports.findOne = async (req, res) => {
     try {
-        // TODO: get all questions and rounds and add them to game object
-        const game = await Game.findOne({ _id: req.body.id })
-
-        const questions = await Question.find({ gameId: req.body.id });
-        game.questions = questions;
-
-        const rounds = await Round.find({ gameId: gameId });
-        game.rounds = rounds;
-        // res.send(game).status(200)
-
         res.status(OK).json({
             success: true,
             game: game
@@ -181,7 +160,10 @@ exports.findOne = async (req, res) => {
         })
     }
 }
-/*
-TODO:
-1.
-*/
+
+exports.getOwners = async (req, res) => {
+    const accounts = await Account.find()
+    accounts.forEach(account => {
+
+    })
+}

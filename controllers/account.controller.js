@@ -30,7 +30,7 @@ exports.getAll = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        await Account.deleteOne({ _id: req.body.id })
+        await Account.deleteOne({ _id: req.body.accountId })
         res.status(200).json({
             success: true
         })
@@ -44,7 +44,7 @@ exports.delete = async (req, res) => {
 
 exports.updateAvatar = async (req, res) => {
     try {
-        const account = await Account.findOne({ _id: req.body.id });
+        const account = await Account.findOne({ _id: req.body.accountId });
         account.avatarId = req.body.avatarId;
         account.save()
         res.status(200).json({
@@ -61,7 +61,7 @@ exports.updateAvatar = async (req, res) => {
 
 exports.findOne = async (req, res) => {
     try {
-        const account = await Account.findOne({ _id: req.body.id });
+        const account = await Account.findOne({ _id: req.body.accountId });
         res.send(account).status(200)
     } catch (err) {
         res.status(500).json({
@@ -73,8 +73,8 @@ exports.findOne = async (req, res) => {
 
 exports.addGame = async (req, res) => {
     try {
-        const account = await Account.findOne({ _id: req.body.id })
-        account.games.push(req.body.game)
+        const account = await Account.findOne({ _id: req.body.accountId })
+        account.gamesIds.push(req.body.gameId)
         account.save()
         res.status(200).json({
             success: true,
@@ -87,8 +87,3 @@ exports.addGame = async (req, res) => {
         })
     }
 }
-/*
-TOOD: 
-1.
-
-*/
