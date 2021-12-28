@@ -1,0 +1,10 @@
+some stuff to do:
+1. find the admins for each game
+2. update where needs the atrribute "privacy" in "game"
+3. put consts in files
+4. change statuscode OK in all files
+5. add gameId when round create
+6. change mode: privacy between two
+7. find all rounds
+8. find rounds amount
+9. update question

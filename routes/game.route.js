@@ -6,15 +6,15 @@ router.get("/", games.getAll)// Get all games
 
 router.post("/", games.create)
 
-router.post("/addRound", games.addRound)
+// router.post("/addRound", games.addRound)
 
 router.post("/addQuestion", games.addQuestion)
 
-router.get("/roundsAmount", games.roundsAmount)
+// router.get("/roundsAmount", games.roundsAmount)
 
 router.get("/questionsAmount", games.questionsAmount)
 
-router.patch("/updateQuestion", games.updateQuestion)
+// router.patch("/updateQuestion", games.updateQuestion)
 
 router.delete("/delete", games.delete)
 
